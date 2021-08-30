@@ -1,0 +1,13 @@
+{
+  "exp_name": "resnet18_exp1",
+  "batch_size": 256,
+  "lr": 0.01,
+  "lr_drop_step": 24,
+  "epochs": 75,
+  "init_epoch": 0,
+  "num_workers": 20,
+  "train_dir": '/media/datasets/imagenet_2012/images/train/',
+  "val_dir": '/media/datasets/imagenet_2012/images/val/',
+  "model":{"type": "resnet18",
+           "pretrained_model": null}
+}

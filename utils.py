@@ -29,7 +29,6 @@ class AverageMeter(object):
         return fmtstr.format(**self.__dict__)
 
     
-    
 class ProgressMeter(object):
     def __init__(self, num_batches, meters, prefix=""):
         self.batch_fmtstr = self._get_batch_fmtstr(num_batches)
@@ -46,39 +45,7 @@ class ProgressMeter(object):
         fmt = '{:' + str(num_digits) + 'd}'
         return '[' + fmt + '/' + fmt.format(num_batches) + ']'
 
-    
-class ValidationFromDataFrame(Dataset):
-    """Face Landmarks dataset."""
 
-    def __init__(self, df, transform=None):
-        """
-        Args:
-            csv_file (string): Path to the csv file with annotations.
-            root_dir (string): Directory with all the images.
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
-        """
-        self.df = df
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.df)
-
-    def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
-
-        img_name = self.df.iloc[idx,0]
-        image = Image.open(img_name)
-        #print(self.df.iloc[idx, 1])
-        label = np.array(self.df.iloc[idx, 1][0])
-
-
-        if self.transform:
-            image = self.transform(image)
-        
-        return image,torch.from_numpy(label)    
-    
 def train(train_loader, model, criterion, optimizer, epoch, print_freq=50):
     batch_time = AverageMeter('Batch_time', ':6.2f')
     data_time = AverageMeter('Data_time', ':6.2f')
@@ -124,7 +91,7 @@ def train(train_loader, model, criterion, optimizer, epoch, print_freq=50):
                    data_time=data_time, loss=losses, top1=top1, top5=top5))
     return top1.avg
 
-def validate(val_loader, model, criterion,print_freq=50):
+def validate(val_loader, model, criterion, print_freq=50):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
     top1 = AverageMeter('Acc@1', ':6.2f')
@@ -160,9 +127,7 @@ def validate(val_loader, model, criterion,print_freq=50):
             if i % print_freq == 0:
                 progress.display(i)
 
-        # TODO: this should also be done with the ProgressMeter
-        print(' * Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f}'
-              .format(top1=top1, top5=top5))
+        print(' * Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f}'.format(top1=top1, top5=top5))
 
     return top1.avg
 
@@ -182,21 +147,3 @@ def accuracy(output, target, topk=(1,)):
             correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
-    
-
-def parse_valtxt(path_tovaltxt):
-    file = open(path_tovaltxt)
-    dict_image_class = dict()
-    while True:
-        first_line = file.readline()
-        if first_line == '':
-            break
-        key, value = first_line.split()
-        dict_image_class[key] = int(value)
-    return dict_image_class
-
-def save_best(state, experiment_name):
-    model_path = './training_results/' + experiment_name + '/'
-    if not os.path.exists(model_path):
-        os.mkdir(model_path)
-    torch.save(state, model_path + experiment_name + '_best.pth.tar')
