@@ -147,3 +147,16 @@ def accuracy(output, target, topk=(1,)):
             correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
         return res
+
+
+def speed_evaluation(model):
+    model.eval()
+    input = torch.cuda.FloatTensor(1, 3, 224, 224).normal_()
+    elapsed_times = list()
+    for _ in range(10_000):
+        start_time = time.time()
+        output = model(input)
+        elapsed_times.append(time.time() - start_time)
+    avg_time = sum(elapsed_times) / len(elapsed_times)
+    print("Inference time = ", round(avg_time, 3), " ms")
+    print("FPS = ", round(1/avg_time, 2))

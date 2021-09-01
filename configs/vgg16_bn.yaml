@@ -1,6 +1,6 @@
 {
   "exp_name": "vgg16_bn_exp1",
-  "batch_size": 256,
+  "batch_size": 128,
   "lr": 0.01,
   "lr_drop_step": 24,
   "epochs": 60,
@@ -9,5 +9,6 @@
   "train_dir": '/media/datasets/imagenet_2012/images/train/',
   "val_dir": '/media/datasets/imagenet_2012/images/val/',
   "model":{"type": "vgg16_bn",
+           "alpha": 1,
            "pretrained_model": null}
 }

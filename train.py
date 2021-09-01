@@ -44,7 +44,7 @@ def save_logs(exp_name, logs):
 
 if __name__ == "__main__":
     # to be changed. e.g. 
-    parameters_path = "/experiments/resnet18.yaml"
+    parameters_path = "./configs/resnet18.yaml"
     with open(os.path.join(os.path.abspath(os.getcwd()), parameters_path)) as f:
         prms = yaml.safe_load(f)
     print("Parameters of training: ", prms)

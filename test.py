@@ -1,14 +1,13 @@
 import os 
 import time
 import yaml
-from collections import OrderedDict
 
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
-from utils import validate, train
+from utils import validate, speed_evaluation
 from models.vgg16_bn import VGG16BN
 from models.resnet18 import ResNet18
 from models.mobilenet_v2 import MobileNetV2
@@ -16,7 +15,7 @@ from models.mobilenet_v2 import MobileNetV2
 
 if __name__ == "__main__":
     # to be changed. e.g. 
-    parameters_path = "/configs/resnet18.yaml"
+    parameters_path = "./configs/mobilenet_v2.yaml"
     with open(os.path.join(os.path.abspath(os.getcwd()), parameters_path)) as f:
         prms = yaml.safe_load(f)
     print("Parameters of training: ", prms)
@@ -53,9 +52,9 @@ if __name__ == "__main__":
     if model_prms["pretrained_model"] is not None:
         model.load_state_dict(torch.load(model_prms["pretrained_model"])["state_dict"])
 
-    
     criterion = nn.CrossEntropyLoss().cuda()
-
 
     # validate on the validation dataset
     val_acc = validate(val_loader, model, criterion)
+    
+    speed_evaluation(model)

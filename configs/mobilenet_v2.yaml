@@ -8,6 +8,7 @@
   "num_workers": 20,
   "train_dir": '/media/datasets/imagenet_2012/images/train/',
   "val_dir": '/media/datasets/imagenet_2012/images/val/',
-  "model":{"type": "resnet18",
+  "model":{"type": "mobilenet_v2",
+           "alpha": 1,
            "pretrained_model": null}
 }
