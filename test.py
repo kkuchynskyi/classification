@@ -8,14 +8,12 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
 from utils import validate, speed_evaluation
-from models.vgg16_bn import VGG16BN
-from models.resnet18 import ResNet18
-from models.mobilenet_v2 import MobileNetV2
+from models.model_factory import create_model
 
 
 if __name__ == "__main__":
     # to be changed. e.g. 
-    parameters_path = "./configs/mobilenet_v2.yaml"
+    parameters_path = "./configs/resnet50.yaml"
     with open(os.path.join(os.path.abspath(os.getcwd()), parameters_path)) as f:
         prms = yaml.safe_load(f)
     print("Parameters of training: ", prms)
@@ -40,17 +38,7 @@ if __name__ == "__main__":
     print('Elapsed time on the data loaders=', time.time() - start_dataset_time)
 
     model_prms = prms["model"]
-    if model_prms["type"] == "vgg16_bn":
-        model = VGG16BN(model_prms).cuda()
-    elif model_prms["type"] == "resnet18":
-        model = ResNet18(model_prms).cuda()
-    elif model_prms["type"] == "mobilenet_v2":
-        model = MobileNetV2(model_prms).cuda()
-    else:
-        raise KeyError("Model type not in ['vgg16_bn', 'resnet18', 'mobilenet_v2']")
-
-    if model_prms["pretrained_model"] is not None:
-        model.load_state_dict(torch.load(model_prms["pretrained_model"])["state_dict"])
+    model = create_model(model_prms)
 
     criterion = nn.CrossEntropyLoss().cuda()
 

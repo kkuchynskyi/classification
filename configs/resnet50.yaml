@@ -1,0 +1,14 @@
+{
+  "exp_name": "resnet50_test",
+  "batch_size": 10,
+  "lr": 0.01,
+  "lr_drop_step": 24,
+  "epochs": 75,
+  "init_epoch": 0,
+  "num_workers": 20,
+  "train_dir": '/media/datasets/imagenet_2012/images/train/',
+  "val_dir": '/media/datasets/imagenet_2012/images/val/',
+  "model":{"type": "resnet50",
+           "pretrained_model": null
+           }
+}

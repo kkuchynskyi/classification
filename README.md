@@ -5,6 +5,7 @@ This repository contains a pipeleine for training on Imagenet dataset. It is des
 | --- | --- | --- | --- | --- | --- |
 | VGG16 with bn | 73.036 | 91.270 | 124.53 | [log](https://drive.google.com/file/d/1ejryvdIAeQXf6mRLCSdxaaalHc1dYvUH/view?usp=sharing)| [weight](https://drive.google.com/file/d/16H-NDYwCB7AimxIdIDRkF6QuLm8MQa0j/view?usp=sharing)| 
 | ResNet18 | 65.954| 86.730 | 211.93 | [log](https://drive.google.com/file/d/1gGvlGhNw18VT_i_dFoqJG_sIH3K5AAmt/view?usp=sharing) | [weight](https://drive.google.com/file/d/128_895Oe9gxiBfLaYPJFnOgthcF4DHP5/view?usp=sharing) |
+| ResNet50 | 73.986| 91.542 | 42.53 | [log](https://drive.google.com/file/d/1OaZK98GUGxegeNJuRXaIGsRHGTVxz0VD/view?usp=sharing) | [weight](https://drive.google.com/file/d/1OaZK98GUGxegeNJuRXaIGsRHGTVxz0VD/view?usp=sharing) |
 | MobileNetV2 alpha 1 | 69.330 | 88.854 | 222.26 | [log](https://drive.google.com/file/d/16OuLP3MW7i3O17FlsHDkxo0ByAODjrgy/view?usp=sharing) | [weight](https://drive.google.com/file/d/1gUoJko-RpxoxXKZ72dt4e20kUJHGqObJ/view?usp=sharing) |
 
 
