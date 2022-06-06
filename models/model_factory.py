@@ -1,8 +1,8 @@
 import torch
 
 from models.vgg16_bn import VGG16BN
-from models.resnet18 import ResNet18
-from models.resnet50 import ResNet50
+from models.resnet import ResNet18, ResNet50
+#from models.resnet50 import ResNet50
 from models.mobilenet_v2 import MobileNetV2
 
 
@@ -10,9 +10,9 @@ def create_model(model_prms):
     if model_prms["type"] == "vgg16_bn":
         model = VGG16BN(model_prms)
     elif model_prms["type"] == "resnet18":
-        model = ResNet18(model_prms)
+        model = ResNet18()
     elif model_prms["type"] == "resnet50":
-        model = ResNet50(model_prms)#.cuda()
+        model = ResNet50()#.cuda()
     elif model_prms["type"] == "mobilenet_v2":
         model = MobileNetV2(model_prms)
     else:
